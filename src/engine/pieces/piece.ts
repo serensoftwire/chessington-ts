@@ -17,19 +17,35 @@ export default class Piece {
         return board.findPiece(this).col;
     }
 
-    protected static generateLateralMoves = (currentRow: number, currentCol: number) => {
+    protected static generateLateralMoves = (currentRow: number, currentCol: number, board: Board) => {
         const moves: Square[] = [];
 
-        for (let row = 0; row < GameSettings.BOARD_SIZE; row++) {
-            if (row != currentRow) {
-                moves.push(Square.at(row, currentCol));
+        for (let row = currentRow - 1; row >= 0; row--) {
+            if (!Square.at(row, currentCol).isEmpty(board)) {
+                break;
             }
+            moves.push(Square.at(row, currentCol));
         }
 
-        for (let col = 0; col < GameSettings.BOARD_SIZE; col++) {
-            if (col != currentCol) {
-                moves.push(Square.at(currentRow, col));
+        for (let row = currentRow + 1; row < GameSettings.BOARD_SIZE; row++) {
+            if (!Square.at(row, currentCol).isEmpty(board)) {
+                break;
             }
+            moves.push(Square.at(row, currentCol));
+        }
+
+        for (let col = currentCol - 1; col >= 0; col--) {
+            if (!Square.at(currentRow, col).isEmpty(board)) {
+                break;
+            }
+            moves.push(Square.at(currentRow, col));
+        }
+
+        for (let col = currentCol + 1; col < GameSettings.BOARD_SIZE; col++) {
+            if (!Square.at(currentRow, col).isEmpty(board)) {
+                break;
+            }
+            moves.push(Square.at(currentRow, col));
         }
 
         return moves;

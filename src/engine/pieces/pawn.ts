@@ -15,16 +15,16 @@ export default class Pawn extends Piece {
 
         if (this.player === Player.WHITE && Square.at(currentRow+1,currentCol).isEmpty(board)) {
             moves.push(Square.at(currentRow+1,currentCol));
-            if (currentRow === 1) {
+            if (currentRow === 1 && Square.at(currentRow+2,currentCol).isEmpty(board)) {
                 moves.push(Square.at(currentRow+2, currentCol));
             }
         } else if (Square.at(currentRow-1,currentCol).isEmpty(board)) {
             moves.push(Square.at(currentRow-1,currentCol));
-            if (currentRow === 6) {
+            if (currentRow === 6 && Square.at(currentRow-2,currentCol).isEmpty(board)) {
                 moves.push(Square.at(currentRow-2, currentCol));
             }
         }
 
-        return Pawn.removeBlockedMoves(moves, board);
+        return moves;
     }
 }

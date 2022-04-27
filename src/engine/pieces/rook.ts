@@ -11,6 +11,6 @@ export default class Rook extends Piece {
         const currentRow: number = this.getCurrentRow(board);
         const currentCol: number = this.getCurrentCol(board);
 
-        return Rook.generateLateralMoves(currentRow, currentCol);
+        return Rook.generateLateralMoves(currentRow, currentCol, board);
     }
 }

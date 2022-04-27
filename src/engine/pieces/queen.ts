@@ -13,7 +13,7 @@ export default class Queen extends Piece {
         const currentRow: number = this.getCurrentRow(board);
         const currentCol: number = this.getCurrentCol(board);
 
-        moves.push(...Queen.generateLateralMoves(currentRow, currentCol));
+        moves.push(...Queen.generateLateralMoves(currentRow, currentCol, board));
         moves.push(...Queen.generateUpDiagonalMoves(currentRow, currentCol));
         moves.push(...Queen.generateDownDiagonalMoves(currentRow, currentCol));
 
