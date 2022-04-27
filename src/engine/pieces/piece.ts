@@ -3,7 +3,17 @@ import Square from "../square";
 import Player from "../player";
 
 export default class Piece {
+
     constructor(public readonly player: Player) {
+        this.player = player;
+    }
+
+    getCurrentRow(board: Board) {
+        return board.findPiece(this).row;
+    }
+
+    getCurrentCol(board: Board) {
+        return board.findPiece(this).col;
     }
 
     getAvailableMoves(board: Board) {
