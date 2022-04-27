@@ -24,7 +24,7 @@ export default class Board {
         this.board[square.row][square.col] = piece;
     }
 
-    getPiece(square: Square) {
+    getPiece(square: Square): Piece | undefined {
         return this.board[square.row][square.col];
     }
 

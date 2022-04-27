@@ -16,6 +16,7 @@ export default class Piece {
     getCurrentCol(board: Board) {
         return board.findPiece(this).col;
     }
+
     protected static generateLateralMoves = (currentRow: number, currentCol: number) => {
         const moves: Square[] = [];
 
@@ -71,6 +72,10 @@ export default class Piece {
         const higherIsCol: boolean = currentCol > currentRow
 
         return Piece.getUpDiagonalMoves(intercept, higherCoordinate, higherIsCol);
+    }
+
+    protected static removeBlockedMoves(moves: Square[], board: Board): Square[] {
+        return moves.filter(square => square.isEmpty(board));
     }
 
     getAvailableMoves(board: Board) {

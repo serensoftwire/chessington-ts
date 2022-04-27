@@ -13,17 +13,18 @@ export default class Pawn extends Piece {
         const currentRow: number = this.getCurrentRow(board);
         const currentCol: number = this.getCurrentCol(board);
 
-        if (this.player === Player.WHITE) {
+        if (this.player === Player.WHITE && Square.at(currentRow+1,currentCol).isEmpty(board)) {
             moves.push(Square.at(currentRow+1,currentCol));
             if (currentRow === 1) {
                 moves.push(Square.at(currentRow+2, currentCol));
             }
-        } else {
+        } else if (Square.at(currentRow-1,currentCol).isEmpty(board)) {
             moves.push(Square.at(currentRow-1,currentCol));
             if (currentRow === 6) {
                 moves.push(Square.at(currentRow-2, currentCol));
             }
         }
-        return moves;
+
+        return Pawn.removeBlockedMoves(moves, board);
     }
 }
