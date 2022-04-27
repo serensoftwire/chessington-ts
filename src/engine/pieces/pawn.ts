@@ -9,9 +9,9 @@ export default class Pawn extends Piece {
     }
 
     getAvailableMoves(board: Board) {
-        const moves = [];
-        const currentRow = this.getCurrentRow(board);
-        const currentCol = this.getCurrentCol(board);
+        const moves: Square[] = [];
+        const currentRow: number = this.getCurrentRow(board);
+        const currentCol: number = this.getCurrentCol(board);
 
         if (this.player === Player.WHITE) {
             moves.push(Square.at(currentRow+1,currentCol));
