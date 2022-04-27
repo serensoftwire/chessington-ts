@@ -90,9 +90,9 @@ export default class Piece {
         return Piece.getUpDiagonalMoves(intercept, higherCoordinate, higherIsCol);
     }
 
-    protected static removeBlockedMoves(moves: Square[], board: Board): Square[] {
-        return moves.filter(square => square.isEmpty(board));
-    }
+    // protected static removeBlockedMoves(moves: Square[], board: Board): Square[] {
+    //     return moves.filter(square => square.isEmpty(board));
+    // }
 
     getAvailableMoves(board: Board) {
         throw new Error('This method must be implemented, and return a list of available moves');
