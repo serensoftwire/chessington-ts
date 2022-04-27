@@ -3,12 +3,13 @@ import Board from '../../src/engine/board';
 import Pawn from '../../src/engine/pieces/pawn';
 import Player from '../../src/engine/player';
 import Square from '../../src/engine/square';
+import Piece from "../../src/engine/pieces/piece";
 
 describe('Board', () => {
 
     describe('pawns', () => {
 
-        let board;
+        let board: Board;
         beforeEach(() => { // Common code executed before each test.
             board = new Board();
         });
@@ -22,7 +23,7 @@ describe('Board', () => {
             board.setPiece(square, pawn);
 
             // Assert
-            board.getPiece(square).should.equal(pawn); // Object equality: same object reference
+            (board.getPiece(square) as Piece).should.equal(pawn); // Object equality: same object reference
         });
 
         it('can be found on the board', () => {
