@@ -13,7 +13,7 @@ export default class Piece {
         return board.findPiece(this);
     }
 
-    protected static isWithinBounds(row: number, col: number): boolean {
+    private static isWithinBounds(row: number, col: number): boolean {
         return (row >= 0 && row < GameSettings.BOARD_SIZE && col >= 0 && col < GameSettings.BOARD_SIZE);
     }
 
