@@ -10,12 +10,10 @@ export default class Queen extends Piece {
 
     getAvailableMoves(board: Board) {
         const moves: Square[] = [];
-        const currentRow: number = this.getCurrentRow(board);
-        const currentCol: number = this.getCurrentCol(board);
+        const currentSquare = this.getCurrentSquare(board);
 
-        moves.push(...Queen.generateLateralMoves(currentRow, currentCol, board));
-        moves.push(...Queen.generateUpDiagonalMoves(currentRow, currentCol));
-        moves.push(...Queen.generateDownDiagonalMoves(currentRow, currentCol));
+        moves.push(...Queen.generateLateralMoves(currentSquare, board));
+        moves.push(...Queen.generateDiagonalMoves(currentSquare, board));
 
         return moves;
     }

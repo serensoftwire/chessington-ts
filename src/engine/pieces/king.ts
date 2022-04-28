@@ -10,13 +10,14 @@ export default class King extends Piece {
         super(player);
     }
 
-    private static generateMoves(currentRow: number, currentCol: number) {
+    private generateMoves(board: Board) {
         const moves: Square[] = [];
+        const currentSquare = this.getCurrentSquare(board);
 
         for (let rowIndex = 0; rowIndex < 3; rowIndex++) {
             for (let colIndex = 0; colIndex < 3; colIndex++) {
                 if (rowIndex + colIndex > 0) {
-                    moves.push(Square.at(currentRow + this.possibleMoves[rowIndex], currentCol + this.possibleMoves[colIndex]));
+                    moves.push(Square.at(currentSquare.row + King.possibleMoves[rowIndex], currentSquare.col + King.possibleMoves[colIndex]));
                 }
             }
         }
@@ -25,9 +26,6 @@ export default class King extends Piece {
     }
 
     getAvailableMoves(board: Board) {
-        const currentRow: number = this.getCurrentRow(board);
-        const currentCol: number = this.getCurrentCol(board);
-
-        return King.generateMoves(currentRow, currentCol);
+        return this.generateMoves(board);
     }
 }

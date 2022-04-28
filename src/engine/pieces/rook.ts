@@ -1,6 +1,7 @@
 import Piece from './piece';
 import Board from "../board";
 import Player from "../player";
+import Square from "../square";
 
 export default class Rook extends Piece {
     constructor(player: Player) {
@@ -8,9 +9,8 @@ export default class Rook extends Piece {
     }
 
     getAvailableMoves(board: Board) {
-        const currentRow: number = this.getCurrentRow(board);
-        const currentCol: number = this.getCurrentCol(board);
+        const currentSquare = this.getCurrentSquare(board);
 
-        return Rook.generateLateralMoves(currentRow, currentCol, board);
+        return Rook.generateLateralMoves(currentSquare, board);
     }
 }

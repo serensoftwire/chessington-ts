@@ -9,90 +9,51 @@ export default class Piece {
         this.player = player;
     }
 
-    getCurrentRow(board: Board) {
-        return board.findPiece(this).row;
+    getCurrentSquare(board: Board): Square {
+        return board.findPiece(this);
     }
 
-    getCurrentCol(board: Board) {
-        return board.findPiece(this).col;
+    protected static isWithinBounds(row: number, col: number): boolean {
+        return (row >= 0 && row < GameSettings.BOARD_SIZE && col >= 0 && col < GameSettings.BOARD_SIZE);
     }
 
-    protected static generateLateralMoves = (currentRow: number, currentCol: number, board: Board) => {
+    private static longRangeMoveChecker = function(rowDirection: number, colDirection: number, board: Board): Function {
+
+        return function recurseMove (row: number, col: number, squares: Square[]): Square[] {
+
+            if (Piece.isWithinBounds(row, col) && Square.at(row, col).isEmpty(board)) {
+                squares.push(Square.at(row, col));
+                return recurseMove(row + rowDirection, col + colDirection, squares);
+            }
+
+            return squares;
+        }
+    }
+
+    private static checkLongRangeMoves = function(currentSquare: Square, board: Board, moveset: number[][]): Square[] {
         const moves: Square[] = [];
 
-        for (let row = currentRow - 1; row >= 0; row--) {
-            if (!Square.at(row, currentCol).isEmpty(board)) {
-                break;
-            }
-            moves.push(Square.at(row, currentCol));
-        }
-
-        for (let row = currentRow + 1; row < GameSettings.BOARD_SIZE; row++) {
-            if (!Square.at(row, currentCol).isEmpty(board)) {
-                break;
-            }
-            moves.push(Square.at(row, currentCol));
-        }
-
-        for (let col = currentCol - 1; col >= 0; col--) {
-            if (!Square.at(currentRow, col).isEmpty(board)) {
-                break;
-            }
-            moves.push(Square.at(currentRow, col));
-        }
-
-        for (let col = currentCol + 1; col < GameSettings.BOARD_SIZE; col++) {
-            if (!Square.at(currentRow, col).isEmpty(board)) {
-                break;
-            }
-            moves.push(Square.at(currentRow, col));
+        for (let [rowDirection, colDirection] of moveset) {
+            const moveChecker = Piece.longRangeMoveChecker(rowDirection, colDirection, board);
+            moveChecker(currentSquare.row + rowDirection, currentSquare.col + colDirection, moves);
         }
 
         return moves;
     }
 
-    protected static generateDownDiagonalMoves = (currentRow: number, currentCol: number) => {
-        const downDiagonalMoves: Square[] = [];
-        const invStart: number = currentRow + currentCol;
+    protected static generateLateralMoves(currentSquare: Square, board: Board) {
 
-        for (let row: number = invStart; row >= 0; row--) {
-            if (row != currentRow) {
-                downDiagonalMoves.push(Square.at(row, invStart - row));
-            }
-        }
+        const moveset: number[][] = [[1, 0], [-1, 0], [0, -1], [0, 1]];
+        return Piece.checkLongRangeMoves(currentSquare, board, moveset);
 
-        return downDiagonalMoves;
     }
 
-    protected static createUpDiagonalMove = (zeroStart: number, higherCoordinate: number, higherIsCol: boolean) => {
-        return higherIsCol ? Square.at(zeroStart, higherCoordinate) : Square.at(higherCoordinate, zeroStart);
+    protected static generateDiagonalMoves(currentSquare: Square, board: Board) {
+
+        const moveset: number[][] = [[1, 1], [-1, 1], [1, -1], [-1, -1]];
+        return Piece.checkLongRangeMoves(currentSquare, board, moveset);
+
     }
-
-    protected static getUpDiagonalMoves = (intercept: number, currentHigher: number, higherIsCol: boolean) => {
-        const upDiagonalMoves: Square[] = [];
-        let zeroStart: number = 0;
-
-        for (let higherCoordinate: number = intercept; higherCoordinate < GameSettings.BOARD_SIZE; higherCoordinate++) {
-            if (higherCoordinate != currentHigher) {
-                upDiagonalMoves.push(Piece.createUpDiagonalMove(zeroStart, higherCoordinate, higherIsCol));
-            }
-            zeroStart++;
-        }
-
-        return upDiagonalMoves;
-    }
-
-    protected static generateUpDiagonalMoves = (currentRow: number, currentCol: number) => {
-        const higherCoordinate: number = Math.max(currentCol, currentRow);
-        const intercept: number = higherCoordinate - Math.min(currentRow, currentCol);
-        const higherIsCol: boolean = currentCol > currentRow
-
-        return Piece.getUpDiagonalMoves(intercept, higherCoordinate, higherIsCol);
-    }
-
-    // protected static removeBlockedMoves(moves: Square[], board: Board): Square[] {
-    //     return moves.filter(square => square.isEmpty(board));
-    // }
 
     getAvailableMoves(board: Board) {
         throw new Error('This method must be implemented, and return a list of available moves');
