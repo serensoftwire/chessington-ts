@@ -22,7 +22,7 @@ export default class King extends Piece {
             }
         }
 
-        return moves.filter((square) => square.isUnoccupied(board));
+        return moves.filter((square) => square.isEmptySquare(board));
     }
 
     getAvailableMoves(board: Board) {

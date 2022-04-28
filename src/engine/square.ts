@@ -15,12 +15,12 @@ export default class Square {
         return this.row < GameSettings.BOARD_SIZE && this.col < GameSettings.BOARD_SIZE && this.row >= 0 && this.col >= 0;
     }
 
-    doesNotContainPiece(board: Board): boolean {
+    containsNoPiece(board: Board): boolean {
         return !(board.getPiece(this) instanceof Piece);
     }
 
-    isUnoccupied(board: Board): boolean {
-        return this.isWithinBounds() && this.doesNotContainPiece(board);
+    isEmptySquare(board: Board): boolean {
+        return this.isWithinBounds() && this.containsNoPiece(board);
     }
 
     holdsEnemyPieceOf(colour: string, board: Board): boolean {
@@ -33,7 +33,11 @@ export default class Square {
     }
 
     canBeCaptured(colour: string, board: Board): boolean {
-        return this.holdsEnemyPieceOf(colour, board) && !this.holdsKing(board);
+        return this.isWithinBounds() && this.holdsEnemyPieceOf(colour, board) && !this.holdsKing(board);
+    }
+
+    isValidLocation(colour: string, board: Board): boolean {
+        return this.isEmptySquare(board) || this.canBeCaptured(colour, board);
     }
 
     equals(otherSquare: Square): boolean {

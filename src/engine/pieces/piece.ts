@@ -22,7 +22,7 @@ export default abstract class Piece {
         return function recurseMove (row: number, col: number, squares: Square[]): Square[] {
 
             if (Piece.isWithinBounds(row, col)) {
-                if (Square.at(row, col).doesNotContainPiece(board)) {
+                if (Square.at(row, col).containsNoPiece(board)) {
                     squares.push(Square.at(row, col));
                     return recurseMove(row + rowDirection, col + colDirection, squares);
                 } else if (Square.at(row, col).canBeCaptured(colour, board)) {
