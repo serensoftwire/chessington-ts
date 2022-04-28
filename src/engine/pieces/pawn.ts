@@ -8,25 +8,33 @@ export default class Pawn extends Piece {
         super(player);
     }
 
+    private static makePawnMoveChecker = function (moveUp: boolean, board: Board): Function {
+        const increment = moveUp ? 1 : -1;
+
+        return function checkPawnMoves (currentRow: number, currentCol: number): Square[] {
+            const moves: Square[] = [];
+
+            if (Square.at(currentRow + increment,currentCol).isEligible(board)) {
+                moves.push(Square.at(currentRow + increment, currentCol));
+                if (currentRow === 1 && moveUp || currentRow === 6 && !moveUp) {
+                    if (Square.at(currentRow + 2*increment, currentCol).isEligible(board)) {
+                        moves.push(Square.at(currentRow + 2*increment, currentCol));
+                    }
+                }
+            }
+
+            return moves;
+        }
+    }
+
     getAvailableMoves(board: Board) {
-        const moves: Square[] = [];
         const currentSquare: Square = this.getCurrentSquare(board);
 
         const currentRow: number = currentSquare.row;
         const currentCol: number = currentSquare.col;
 
-        if (this.player === Player.WHITE && Square.at(currentRow+1,currentCol).isEligible(board)) {
-            moves.push(Square.at(currentRow+1,currentCol));
-            if (currentRow === 1 && Square.at(currentRow+2,currentCol).isEligible(board)) {
-                moves.push(Square.at(currentRow+2, currentCol));
-            }
-        } else if (this.player === Player.BLACK && Square.at(currentRow-1,currentCol).isEligible(board)) {
-            moves.push(Square.at(currentRow-1,currentCol));
-            if (currentRow === 6 && Square.at(currentRow-2,currentCol).isEligible(board)) {
-                moves.push(Square.at(currentRow-2, currentCol));
-            }
-        }
+        const pawnMoveChecker = Pawn.makePawnMoveChecker(this.player === Player.WHITE, board);
 
-        return moves;
+        return pawnMoveChecker(currentRow, currentCol);
     }
 }
