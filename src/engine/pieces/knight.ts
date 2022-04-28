@@ -26,7 +26,7 @@ export default class Knight extends Piece {
             }
         }
 
-        return moves.filter((square) => square.isWithinBounds);
+        return moves.filter((square) => square.isEligible(board));
     }
 
     getAvailableMoves(board: Board) {

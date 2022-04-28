@@ -15,14 +15,14 @@ export default class Pawn extends Piece {
         const currentRow: number = currentSquare.row;
         const currentCol: number = currentSquare.col;
 
-        if (this.player === Player.WHITE && Square.at(currentRow+1,currentCol).isEmpty(board)) {
+        if (this.player === Player.WHITE && Square.at(currentRow+1,currentCol).isEligible(board)) {
             moves.push(Square.at(currentRow+1,currentCol));
-            if (currentRow === 1 && Square.at(currentRow+2,currentCol).isEmpty(board)) {
+            if (currentRow === 1 && Square.at(currentRow+2,currentCol).isEligible(board)) {
                 moves.push(Square.at(currentRow+2, currentCol));
             }
-        } else if (Square.at(currentRow-1,currentCol).isEmpty(board)) {
+        } else if (this.player === Player.BLACK && Square.at(currentRow-1,currentCol).isEligible(board)) {
             moves.push(Square.at(currentRow-1,currentCol));
-            if (currentRow === 6 && Square.at(currentRow-2,currentCol).isEmpty(board)) {
+            if (currentRow === 6 && Square.at(currentRow-2,currentCol).isEligible(board)) {
                 moves.push(Square.at(currentRow-2, currentCol));
             }
         }
