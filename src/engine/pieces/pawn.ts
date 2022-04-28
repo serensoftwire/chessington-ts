@@ -15,20 +15,27 @@ export default class Pawn extends Piece {
         return (currentRow: number, currentCol: number): Square[] => {
             const moves: Square[] = [];
 
-            if (Square.at(currentRow + increment,currentCol).isEmptySquare(board)) {
-                moves.push(Square.at(currentRow + increment, currentCol));
-                if (currentRow === 1 && isWhite || currentRow === 6 && !isWhite) {
-                    if (Square.at(currentRow + 2*increment, currentCol).isEmptySquare(board)) {
-                        moves.push(Square.at(currentRow + 2*increment, currentCol));
+            const addEmptySquares = () => {
+                if (Square.at(currentRow + increment, currentCol).isEmptySquare(board)) {
+                    moves.push(Square.at(currentRow + increment, currentCol));
+                    if (currentRow === 1 && isWhite || currentRow === 6 && !isWhite) {
+                        if (Square.at(currentRow + 2 * increment, currentCol).isEmptySquare(board)) {
+                            moves.push(Square.at(currentRow + 2 * increment, currentCol));
+                        }
+                    }
+                }
+            };
+
+            const addCaptures = () => {
+                for (const colDirection of [-1, 1]) {
+                    if (Square.at(currentRow + increment, currentCol + colDirection).canBeCaptured(this.player, board)) {
+                        moves.push(Square.at(currentRow + increment, currentCol + colDirection));
                     }
                 }
             }
 
-            for (const colDirection of [-1, 1]) {
-                if (Square.at(currentRow + increment, currentCol + colDirection).canBeCaptured(this.player, board)) {
-                    moves.push(Square.at(currentRow + increment, currentCol + colDirection));
-                }
-            }
+            addEmptySquares();
+            addCaptures();
 
             return moves;
         }
