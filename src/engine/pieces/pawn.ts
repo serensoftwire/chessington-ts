@@ -8,10 +8,11 @@ export default class Pawn extends Piece {
         super(player);
     }
 
-    private static makePawnMoveChecker = function (isWhite: boolean, board: Board): Function {
+    private makePawnMoveChecker = (board: Board): Function => {
+        const isWhite = this.player === Player.WHITE;
         const increment = isWhite ? 1 : -1;
 
-        return function checkPawnMoves (currentRow: number, currentCol: number): Square[] {
+        return (currentRow: number, currentCol: number): Square[] => {
             const moves: Square[] = [];
 
             if (Square.at(currentRow + increment,currentCol).isEmptySquare(board)) {
@@ -23,13 +24,19 @@ export default class Pawn extends Piece {
                 }
             }
 
+            for (const colDirection of [-1, 1]) {
+                if (Square.at(currentRow + increment, currentCol + colDirection).canBeCaptured(this.player, board)) {
+                    moves.push(Square.at(currentRow + increment, currentCol + colDirection));
+                }
+            }
+
             return moves;
         }
     }
 
     getAvailableMoves(board: Board) {
         const currentSquare: Square = this.getCurrentSquare(board);
-        const pawnMoveChecker = Pawn.makePawnMoveChecker(this.player === Player.WHITE, board);
+        const pawnMoveChecker = this.makePawnMoveChecker(board);
 
         return pawnMoveChecker(currentSquare.row, currentSquare.col);
     }
