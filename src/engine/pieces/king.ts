@@ -22,9 +22,7 @@ export default class King extends Piece {
             }
         }
 
-        console.log(moves);
-
-        return moves.filter((square) => square.isEligible(board));
+        return moves.filter((square) => square.isUnoccupied(board));
     }
 
     getAvailableMoves(board: Board) {

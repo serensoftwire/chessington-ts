@@ -11,6 +11,6 @@ export default class Queen extends Piece {
         const currentSquare = this.getCurrentSquare(board);
         const moveset: number[][] = [[1, 0], [-1, 0], [0, -1], [0, 1], [1, 1], [-1, 1], [1, -1], [-1, -1]];
 
-        return Queen.checkLongRangeMoves(currentSquare, board, moveset);
+        return this.checkLongRangeMoves(currentSquare, board, moveset);
     }
 }

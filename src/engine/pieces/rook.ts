@@ -11,6 +11,6 @@ export default class Rook extends Piece {
         const currentSquare = this.getCurrentSquare(board);
         const moveset: number[][] = [[1, 0], [-1, 0], [0, -1], [0, 1]];
 
-        return Rook.checkLongRangeMoves(currentSquare, board, moveset);
+        return this.checkLongRangeMoves(currentSquare, board, moveset);
     }
 }

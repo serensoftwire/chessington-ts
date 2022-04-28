@@ -14,10 +14,10 @@ export default class Pawn extends Piece {
         return function checkPawnMoves (currentRow: number, currentCol: number): Square[] {
             const moves: Square[] = [];
 
-            if (Square.at(currentRow + increment,currentCol).isEligible(board)) {
+            if (Square.at(currentRow + increment,currentCol).isUnoccupied(board)) {
                 moves.push(Square.at(currentRow + increment, currentCol));
                 if (currentRow === 1 && isWhite || currentRow === 6 && !isWhite) {
-                    if (Square.at(currentRow + 2*increment, currentCol).isEligible(board)) {
+                    if (Square.at(currentRow + 2*increment, currentCol).isUnoccupied(board)) {
                         moves.push(Square.at(currentRow + 2*increment, currentCol));
                     }
                 }

@@ -3,10 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="53c93d00-9ea1-4614-abad-153f6e67a887" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/engine/pieces/bishop.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/bishop.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/pieces/king.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/king.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/pieces/knight.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/knight.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/pieces/pawn.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/pawn.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/pieces/piece.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/piece.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/engine/pieces/queen.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/queen.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/engine/pieces/rook.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/pieces/rook.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/engine/square.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/engine/square.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,6 +35,7 @@
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "C:/Work/Training/chessington-ts",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
     "ts.external.directory.path": "C:\\Work\\Training\\chessington-ts\\node_modules\\typescript\\lib"
   }
 }]]></component>
@@ -44,7 +48,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1651075956362</updated>
-      <workItem from="1651075957665" duration="9519000" />
+      <workItem from="1651075957665" duration="11344000" />
     </task>
     <servers />
   </component>

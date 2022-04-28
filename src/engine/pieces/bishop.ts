@@ -12,6 +12,6 @@ export default class Bishop extends Piece {
         const currentSquare = this.getCurrentSquare(board);
         const moveset: number[][] = [[1, 1], [-1, 1], [1, -1], [-1, -1]];
 
-        return Bishop.checkLongRangeMoves(currentSquare, board, moveset);
+        return this.checkLongRangeMoves(currentSquare, board, moveset);
     }
 }

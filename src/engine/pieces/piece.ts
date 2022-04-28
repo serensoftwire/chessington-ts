@@ -17,24 +17,28 @@ export default abstract class Piece {
         return (row >= 0 && row < GameSettings.BOARD_SIZE && col >= 0 && col < GameSettings.BOARD_SIZE);
     }
 
-    private static longRangeMoveChecker = function(rowDirection: number, colDirection: number, board: Board): Function {
+    private static longRangeMoveChecker = function(rowDirection: number, colDirection: number, board: Board, colour: string): Function {
 
         return function recurseMove (row: number, col: number, squares: Square[]): Square[] {
 
-            if (Piece.isWithinBounds(row, col) && Square.at(row, col).isEmpty(board)) {
-                squares.push(Square.at(row, col));
-                return recurseMove(row + rowDirection, col + colDirection, squares);
+            if (Piece.isWithinBounds(row, col)) {
+                if (Square.at(row, col).doesNotContainPiece(board)) {
+                    squares.push(Square.at(row, col));
+                    return recurseMove(row + rowDirection, col + colDirection, squares);
+                } else if (Square.at(row, col).canBeCaptured(colour, board)) {
+                    squares.push(Square.at(row, col));
+                }
             }
 
             return squares;
         }
     }
 
-    protected static checkLongRangeMoves = function(currentSquare: Square, board: Board, moveset: number[][]): Square[] {
+    protected checkLongRangeMoves = (currentSquare: Square, board: Board, moveset: number[][]): Square[] => {
         const moves: Square[] = [];
 
         for (let [rowDirection, colDirection] of moveset) {
-            const moveChecker = Piece.longRangeMoveChecker(rowDirection, colDirection, board);
+            const moveChecker = Piece.longRangeMoveChecker(rowDirection, colDirection, board, this.player);
             moveChecker(currentSquare.row + rowDirection, currentSquare.col + colDirection, moves);
         }
 

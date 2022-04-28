@@ -26,7 +26,7 @@ export default class Knight extends Piece {
             }
         }
 
-        return moves.filter((square) => square.isEligible(board));
+        return moves.filter((square) => square.isUnoccupied(board));
     }
 
     getAvailableMoves(board: Board) {
