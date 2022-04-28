@@ -22,7 +22,7 @@ export default class King extends Piece {
             }
         }
 
-        return moves.filter((square) => square.exists);
+        return moves.filter((square) => square.isWithinBounds);
     }
 
     getAvailableMoves(board: Board) {

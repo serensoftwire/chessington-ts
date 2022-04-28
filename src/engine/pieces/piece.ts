@@ -3,9 +3,9 @@ import Square from "../square";
 import Player from "../player";
 import GameSettings from "../gameSettings";
 
-export default class Piece {
+export default abstract class Piece {
 
-    constructor(public readonly player: Player) {
+    protected constructor(public readonly player: Player) {
         this.player = player;
     }
 
@@ -41,9 +41,7 @@ export default class Piece {
         return moves;
     }
 
-    getAvailableMoves(board: Board) {
-        throw new Error('This method must be implemented, and return a list of available moves');
-    }
+    abstract getAvailableMoves(board: Board): Square[];
 
     moveTo(board: Board, newSquare: Square) {
         const currentSquare = board.findPiece(this);

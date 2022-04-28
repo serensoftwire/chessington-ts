@@ -10,7 +10,7 @@ export default class Square {
         return new Square(row, col);
     }
 
-    exists(): boolean {
+    isWithinBounds(): boolean {
         return this.row < GameSettings.BOARD_SIZE && this.col < GameSettings.BOARD_SIZE;
     }
 
