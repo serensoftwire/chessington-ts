@@ -10,7 +10,8 @@ export default class Bishop extends Piece {
 
     getAvailableMoves = (board: Board) => {
         const currentSquare = this.getCurrentSquare(board);
+        const moveset: number[][] = [[1, 1], [-1, 1], [1, -1], [-1, -1]];
 
-        return Bishop.generateDiagonalMoves(currentSquare, board);
+        return Bishop.checkLongRangeMoves(currentSquare, board, moveset);
     }
 }

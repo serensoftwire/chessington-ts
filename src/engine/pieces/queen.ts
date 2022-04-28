@@ -1,7 +1,6 @@
 import Piece from './piece';
 import Board from "../board";
 import Player from "../player";
-import Square from "../square";
 
 export default class Queen extends Piece {
     constructor(player: Player) {
@@ -9,12 +8,9 @@ export default class Queen extends Piece {
     }
 
     getAvailableMoves(board: Board) {
-        const moves: Square[] = [];
         const currentSquare = this.getCurrentSquare(board);
+        const moveset: number[][] = [[1, 0], [-1, 0], [0, -1], [0, 1], [1, 1], [-1, 1], [1, -1], [-1, -1]];
 
-        moves.push(...Queen.generateLateralMoves(currentSquare, board));
-        moves.push(...Queen.generateDiagonalMoves(currentSquare, board));
-
-        return moves;
+        return Queen.checkLongRangeMoves(currentSquare, board, moveset);
     }
 }

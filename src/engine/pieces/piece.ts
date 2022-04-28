@@ -30,7 +30,7 @@ export default class Piece {
         }
     }
 
-    private static checkLongRangeMoves = function(currentSquare: Square, board: Board, moveset: number[][]): Square[] {
+    protected static checkLongRangeMoves = function(currentSquare: Square, board: Board, moveset: number[][]): Square[] {
         const moves: Square[] = [];
 
         for (let [rowDirection, colDirection] of moveset) {
@@ -39,20 +39,6 @@ export default class Piece {
         }
 
         return moves;
-    }
-
-    protected static generateLateralMoves(currentSquare: Square, board: Board) {
-
-        const moveset: number[][] = [[1, 0], [-1, 0], [0, -1], [0, 1]];
-        return Piece.checkLongRangeMoves(currentSquare, board, moveset);
-
-    }
-
-    protected static generateDiagonalMoves(currentSquare: Square, board: Board) {
-
-        const moveset: number[][] = [[1, 1], [-1, 1], [1, -1], [-1, -1]];
-        return Piece.checkLongRangeMoves(currentSquare, board, moveset);
-
     }
 
     getAvailableMoves(board: Board) {
